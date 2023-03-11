@@ -369,13 +369,28 @@ function sumByKey(ll: any, getKey) {
 
 function aggByKey(list, getKey) {
   const result = {};
-  list.forEach((r) => {
-    const key = getKey(r);
-    if (!result[key]) {
-      result[key] = [];
-    }
-    result[key].push(r);
-  });
+  if(typeof(getKey)==="string"){
+    list.forEach((r) => {
+      const key = r[getKey];
+      if (!result[key]) {
+        result[key] = [];
+      }
+      result[key].push(r);
+    });
+
+  }
+  if(typeof(getKey)==="function"){
+    list.forEach((r) => {
+      const key = getKey(r);
+      if (!result[key]) {
+        result[key] = [];
+      }
+      result[key].push(r);
+    });
+  }
+
+
+
   return result;
 }
 
